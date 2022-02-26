@@ -1,0 +1,14 @@
+<div [ngClass]="!onMobile ? 'event-list' : 'event-list-mobile'">
+    <mat-toolbar [ngClass]="!onMobile? 'event-list__toolbar': 'event-list-mobile__toolbar'">
+        Event feed <mat-icon class="event-list__speaker-icon">campaign</mat-icon>
+        <button *ngIf="onMobile"
+            (click)="closeEventList()"
+            class="event-list-mobile__close-icon"
+            mat-icon-button aria-label="Icon with an X">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-toolbar>
+    <div [ngClass]="!onMobile ? 'event-list__wrapper' : 'event-list-mobile__wrapper'">
+        <app-event-detail></app-event-detail>
+    </div>
+</div>

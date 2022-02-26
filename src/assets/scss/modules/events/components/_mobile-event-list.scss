@@ -1,0 +1,27 @@
+.mobile-event-list {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 1rem;
+    bottom: 0;
+    z-index: 99;
+    height: 10vh;
+    width: 100%;
+    background-color: #1A1A1D;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+
+    &__btn {
+        width: 80%;
+    }
+
+    &__maximize {
+        width: auto !important;
+        margin-top: 1.5rem;
+        font-size: 50px;
+        color: rgb(128, 128, 128);
+    }
+}

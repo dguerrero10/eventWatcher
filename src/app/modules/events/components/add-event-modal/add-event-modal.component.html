@@ -1,0 +1,19 @@
+<h2 mat-dialog-title align="center">Add event</h2>
+<div class="add-event">
+    <form class="add-event__form">
+        <mat-form-field class="add-event__form--field"
+                        appearance="outline">
+            <mat-label>Classify event</mat-label>
+            <input matInput>
+        </mat-form-field>
+        <mat-form-field class="add-event__form--field"
+                        appearance="outline">
+            <mat-label>What happened?</mat-label>
+            <textarea rows="4" matInput></textarea>
+        </mat-form-field>
+        <div class="add-event__form--actions">
+            <button mat-button mat-dialog-close>Cancel</button>
+            <button mat-flat-button color="primary" dkFocusInitial>Add</button>
+        </div>
+    </form>
+</div>

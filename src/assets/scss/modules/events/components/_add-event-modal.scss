@@ -1,0 +1,23 @@
+.add-event {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__form {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &--field {
+            width: 100%;
+        }
+
+        &--actions {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}

@@ -1,0 +1,13 @@
+.event-detail {
+    background-color: #1a222a;
+    margin: 1rem;
+    padding: 1.5rem;
+    height: fit-content;
+    border-radius: 4px;
+
+    &__row {
+        display: flex;
+        align-items: center;
+        padding: .5rem 0;
+    }
+}

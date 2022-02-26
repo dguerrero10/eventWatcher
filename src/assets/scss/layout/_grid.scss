@@ -1,0 +1,22 @@
+.grid-xl-sm {
+    display: grid;
+    grid-template-columns: 2.25fr 1fr;
+    column-gap: 2rem;
+    padding: 2rem;
+}
+
+@media screen and (max-width: 1300px) {
+    .grid-xl-sm {
+        grid-template-columns: 1.75fr 1fr;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .grid-xl-sm {
+        grid-template-columns: 1fr;
+        row-gap: 1rem;
+        column-gap: 0;
+        padding: 1rem;
+    }
+}
+

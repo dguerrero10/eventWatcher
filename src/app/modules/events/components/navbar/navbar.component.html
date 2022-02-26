@@ -1,0 +1,41 @@
+<nav *ngIf="!onMobile" class="navbar">
+    <img class="dumb-putin-clown-lolz" [src]="putinClownImg" />
+    <div class="navbar__actions">
+        <button mat-stroked-button color="primary" 
+                class="u-xs-mg-right" (click)="firstTimeAuthenticate()">
+            I've never authenticated
+            <mat-icon class="btn-icon">lock_open</mat-icon>
+        </button>
+        <button mat-flat-button color="warn" 
+                class="u-xs-mg-left" (click)="authenticate()">
+            Authenticate
+            <mat-icon class="btn-icon">lock</mat-icon>
+        </button>
+    </div>
+</nav>
+
+<nav *ngIf="onMobile && !hideNav" class="navbar-mobile">
+    <button (click)="toggleNavMenu()"
+            class="navbar-mobile__menu--btn" 
+            mat-icon-button aria-label="Icon with three bars in a column">
+        <mat-icon *ngIf="!navMenuOpen">menu</mat-icon>
+        <mat-icon *ngIf="navMenuOpen">close</mat-icon>
+    </button>
+    <img class="mobile-putin-still-dumb-lolz" [src]="putinClownImg" />
+    <mat-toolbar *ngIf="navMenuOpen" class="navbar-mobile__menu">
+        <mat-toolbar-row>
+            <button class="u-width-100"
+                mat-flat-button color="warn" (click)="authenticate()">
+                Authenticate
+                <mat-icon class="btn-icon">lock</mat-icon>
+            </button>
+        </mat-toolbar-row>
+        <mat-toolbar-row>
+            <button class="u-width-100"
+                mat-stroked-button color="primary" (click)="firstTimeAuthenticate()">
+                I've never authenticated
+                <mat-icon class="btn-icon">lock_open</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+</nav>

@@ -1,0 +1,26 @@
+.events {
+
+    &__toolbar {
+        background-color:rgb(29, 29, 31);
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-right: 2rem;
+        margin-top: 80px;
+    }
+
+    &__para {
+        margin-bottom: 0;
+        margin-right: 2rem;
+        font-style: italic;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .events {
+
+        &__toolbar {
+            padding-right: 1rem;
+        }
+    }
+}

@@ -1,0 +1,13 @@
+<app-navbar></app-navbar>
+<mat-toolbar *ngIf="!onMobile" class="events__toolbar">
+   <p class="mat-body events__para">To add an event you must authenticate yourself.</p>
+   <button color="primary" mat-flat-button
+   (click)="addEvent()">
+      Add event
+   </button>
+</mat-toolbar>
+<div [ngClass]="!onMobile ? 'grid-xl-sm' : 'mobile-layout' ">
+   <app-google-maps-wrapper></app-google-maps-wrapper>
+   <app-event-list *ngIf="!onMobile"></app-event-list>
+   <app-mobile-view-event-list *ngIf="onMobile"></app-mobile-view-event-list>
+</div>

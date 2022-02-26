@@ -1,0 +1,13 @@
+<app-event-list *ngIf="eventListOpen"></app-event-list>
+<div *ngIf="!eventListOpen" class="mobile-event-list">
+    <button mat-icon-button 
+            (click)="openEventFeed()"
+           aria-label="Icon bar">
+        <mat-icon class="mobile-event-list__maximize">maximize</mat-icon>
+      </button>
+    <button (click)="addEvent()"
+            class="mobile-event-list__btn"
+            mat-flat-button color="primary">
+            Add event
+    </button>
+</div>
