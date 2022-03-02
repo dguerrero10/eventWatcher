@@ -7,6 +7,7 @@ import { ShareGeoLocationService } from 'src/app/core/services/share-geo-locatio
 import { ShareAuthStatusService } from 'src/app/core/services/share-auth-status.service';
 import { Auth } from 'src/app/core/shared/models/auth';
 import { GetIPAddressService } from 'src/app/core/services/get-ip-address.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-event-modal',
@@ -23,6 +24,7 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
   private readonly $destroy = new Subject();
 
   constructor(private shareAuthStatusService: ShareAuthStatusService,
+              private dialogRef: MatDialogRef<AddEventModalComponent>,
               private shareGeoLocationService: ShareGeoLocationService,
               private getIPAddressService: GetIPAddressService,
               private fb: FormBuilder,
@@ -104,6 +106,7 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
     this.eventForm.patchValue({ 'coordinates': this.coordinates });
     this.eventForm.patchValue({ 'timestamp': new Date().toLocaleString() });
     this.eventsCollection?.add(formData.value);
+    this.dialogRef.close();
   }
 
   ngOnDestroy(): void {
