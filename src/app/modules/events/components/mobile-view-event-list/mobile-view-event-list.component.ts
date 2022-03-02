@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
-import { EventListOpenService } from 'src/app/core/shared/event-list-open.service';
+import { EventListOpenService } from 'src/app/core/services/event-list-open.service';
+import { ShareAuthStatusService } from 'src/app/core/services/share-auth-status.service';
+import { Auth } from 'src/app/core/shared/models/auth';
 import { AddEventModalComponent } from '../add-event-modal/add-event-modal.component';
 
 @Component({
@@ -11,12 +13,19 @@ import { AddEventModalComponent } from '../add-event-modal/add-event-modal.compo
 })
 export class MobileViewEventListComponent implements OnInit {
   public eventListOpen: boolean = false;
+  public isLoggedIn: boolean = false;
   private readonly $destroy = new Subject();
 
-  constructor(private eventListOpenService: EventListOpenService,
+  constructor(private shareAuthStatusService: ShareAuthStatusService,
+              private eventListOpenService: EventListOpenService,
               private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.shareAuthStatusService.authenticatedListener
+      .pipe(
+        takeUntil(this.$destroy)
+      )
+        .subscribe((value: Auth) => this.isLoggedIn = value.isLoggedIn);
     this.eventListOpenService.eventListOpenListener
       .pipe(
         takeUntil(this.$destroy)

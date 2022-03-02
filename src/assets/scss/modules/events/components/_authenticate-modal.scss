@@ -1,3 +1,5 @@
+@import '../../../base/animations';
+
 .auth {
     display: flex;
     flex-direction: column;
@@ -18,6 +20,23 @@
             width: 100%;
             display: flex;
             justify-content: space-between;
+            padding-bottom: 1rem;
         }
+    }
+
+    &__header {
+        opacity: 0;
+        animation: slide-in-up-sm .2s ease-in forwards;
+
+        &--failed {
+            opacity: 0;
+            color: #f44336;
+            animation: slide-in-down-sm .2s ease-in forwards;
+        }
+    }
+
+    &__msg {
+        font-size: 12px;
+        font-style: italic;
     }
 }

@@ -7,7 +7,6 @@
     padding-bottom: 1rem;
     bottom: 0;
     z-index: 99;
-    height: 10vh;
     width: 100%;
     background-color: #1A1A1D;
     border-top-left-radius: 10px;
@@ -23,5 +22,10 @@
         margin-top: 1.5rem;
         font-size: 50px;
         color: rgb(128, 128, 128);
+    }
+
+    &__para {
+        margin: 1rem 0;
+        font-style: italic;
     }
 }

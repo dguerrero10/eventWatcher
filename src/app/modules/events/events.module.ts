@@ -13,6 +13,8 @@ import { AddEventModalComponent } from './components/add-event-modal/add-event-m
 import { AuthenticateModalComponent } from './components/authenticate-modal/authenticate-modal.component';
 import { FirstTimeAuthenticateModalComponent } from './components/first-time-authenticate-modal/first-time-authenticate-modal.component';
 import { MobileViewEventListComponent } from './components/mobile-view-event-list/mobile-view-event-list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DisplayMarkerInfoModalComponent } from './components/display-marker-info-modal/display-marker-info-modal.component';
 
 
 @NgModule({
@@ -26,12 +28,15 @@ import { MobileViewEventListComponent } from './components/mobile-view-event-lis
     AuthenticateModalComponent,
     FirstTimeAuthenticateModalComponent,
     MobileViewEventListComponent,
+    DisplayMarkerInfoModalComponent,
   ],
   imports: [
     CommonModule,
     GoogleMapsModule,
     EventsRoutingModule,
-    MaterialModule
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialModule,
   ]
 })
 export class EventsModule { }

@@ -1,15 +1,23 @@
 <nav *ngIf="!onMobile" class="navbar">
     <img class="dumb-putin-clown-lolz" [src]="putinClownImg" />
     <div class="navbar__actions">
+      <ng-container *ngIf="!isLoggedIn">
         <button mat-stroked-button color="primary" 
-                class="u-xs-mg-right" (click)="firstTimeAuthenticate()">
+                class="u-xs-mg-right navbar__actions-btn" (click)="firstTimeAuthenticate()">
             I've never authenticated
             <mat-icon class="btn-icon">lock_open</mat-icon>
         </button>
         <button mat-flat-button color="warn" 
-                class="u-xs-mg-left" (click)="authenticate()">
-            Authenticate
+                class="u-xs-mg-left navbar__actions-btn" (click)="authenticate()">
+                Authenticate
             <mat-icon class="btn-icon">lock</mat-icon>
+        </button>
+      </ng-container>
+        <button class="navbar__deauth-btn"
+                *ngIf="isLoggedIn" mat-stroked-button color="warn" 
+                (click)="deauthenticate()">
+                De-authenticate
+            <mat-icon class="btn-icon">logout</mat-icon>
         </button>
     </div>
 </nav>
@@ -23,18 +31,25 @@
     </button>
     <img class="mobile-putin-still-dumb-lolz" [src]="putinClownImg" />
     <mat-toolbar *ngIf="navMenuOpen" class="navbar-mobile__menu">
-        <mat-toolbar-row>
+        <mat-toolbar-row *ngIf="!isLoggedIn">
             <button class="u-width-100"
                 mat-flat-button color="warn" (click)="authenticate()">
                 Authenticate
                 <mat-icon class="btn-icon">lock</mat-icon>
             </button>
         </mat-toolbar-row>
-        <mat-toolbar-row>
+        <mat-toolbar-row *ngIf="!isLoggedIn">
             <button class="u-width-100"
                 mat-stroked-button color="primary" (click)="firstTimeAuthenticate()">
                 I've never authenticated
                 <mat-icon class="btn-icon">lock_open</mat-icon>
+            </button>
+        </mat-toolbar-row>
+        <mat-toolbar-row *ngIf="isLoggedIn">
+            <button class="u-width-100"
+                mat-stroked-button color="warn" (click)="deauthenticate()">
+                De-authenticate
+                <mat-icon class="btn-icon">logout</mat-icon>
             </button>
         </mat-toolbar-row>
     </mat-toolbar>

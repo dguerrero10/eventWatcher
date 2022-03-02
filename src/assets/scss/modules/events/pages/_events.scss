@@ -1,5 +1,4 @@
 .events {
-
     &__toolbar {
         background-color:rgb(29, 29, 31);
         display: flex;
@@ -7,6 +6,11 @@
         align-items: center;
         padding-right: 2rem;
         margin-top: 80px;
+        border-bottom: 1px solid #000;
+
+        &--btn {
+            min-width: 200px;
+        }
     }
 
     &__para {

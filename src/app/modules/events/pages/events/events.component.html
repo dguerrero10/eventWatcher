@@ -1,8 +1,8 @@
 <app-navbar></app-navbar>
 <mat-toolbar *ngIf="!onMobile" class="events__toolbar">
-   <p class="mat-body events__para">To add an event you must authenticate yourself.</p>
-   <button color="primary" mat-flat-button
-   (click)="addEvent()">
+   <p class="mat-body events__para" *ngIf="!isLoggedIn">Authenticate yourself to add an event.</p>
+   <button class="events__toolbar--btn" color="primary" mat-flat-button [disabled]="isLoggedIn ? false : true" 
+         (click)="addEvent()">
       Add event
    </button>
 </mat-toolbar>

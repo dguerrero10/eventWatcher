@@ -1,17 +1,26 @@
-<h2 mat-dialog-title align="center">Authenticate</h2>
+<h2 *ngIf="!loginError" class="auth__header" mat-dialog-title align="center">Authenticate</h2>
+<h2 *ngIf="loginError" class="auth__header--failed" 
+     mat-dialog-title align="center">Authentication failed
+</h2>
 <div class="auth">
-    <form class="auth__form">
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit(authForm)"
+          class="auth__form">
         <mat-form-field class="auth__form--field" appearance="outline">
             <mat-label>Email</mat-label>
-            <input matInput>
+            <input matInput formControlName="email">
+            <mat-error *ngIf="authForm.get('email')">{{getFormErrors('email')}}</mat-error>
         </mat-form-field>
         <mat-form-field class="auth__form--field" appearance="outline">
             <mat-label>Password</mat-label>
-            <input matInput>
+            <input matInput type="password" formControlName="password">
+            <mat-error *ngIf="authForm.get('password')">{{getFormErrors('password')}}</mat-error>
         </mat-form-field>
         <div class="auth__form--actions">
-            <button mat-button mat-dialog-close>Cancel</button>
-            <button mat-flat-button color="primary" dkFocusInitial>Submit</button>
+            <button mat-button mat-dialog-close type="button"
+                    [disabled]="isSubmitting ? true : false">Cancel</button>
+            <button *ngIf="!isSubmitting" mat-flat-button color="primary" type="submit"
+                    dkFocusInitial>Submit</button>
+            <mat-spinner *ngIf="isSubmitting"diameter="35"></mat-spinner>
         </div>
     </form>
 </div>

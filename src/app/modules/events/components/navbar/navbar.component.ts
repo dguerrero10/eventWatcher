@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
-import { EventListOpenService } from 'src/app/core/shared/event-list-open.service';
-import { MobileViewService } from 'src/app/core/shared/mobile-view.service';
+import { EventListOpenService } from 'src/app/core/services/event-list-open.service';
+import { MobileViewService } from 'src/app/core/services/mobile-view.service';
+import { ShareAuthStatusService } from 'src/app/core/services/share-auth-status.service';
+import { Auth } from 'src/app/core/shared/models/auth';
 import { AuthenticateModalComponent } from '../authenticate-modal/authenticate-modal.component';
 import { FirstTimeAuthenticateModalComponent } from '../first-time-authenticate-modal/first-time-authenticate-modal.component';
 
@@ -15,14 +18,25 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public hideNav: boolean = false;
   public onMobile: boolean = false;
   public navMenuOpen: boolean = false;
+  public isLoggedIn: boolean = false;
   public putinClownImg: string = '../../../../../assets/images/gay-putin-clown.jpg';
   private readonly $destroy = new Subject();
   
-  constructor(private mobileViewService: MobileViewService,
+  constructor(private afAuth: AngularFireAuth,
+              private shareAuthStatusService: ShareAuthStatusService,
+              private mobileViewService: MobileViewService,
               private eventListOpenService: EventListOpenService,
               public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.shareAuthStatusService.authenticatedListener
+      .pipe(
+        takeUntil(this.$destroy)
+      )
+       .subscribe((value: Auth) => {
+         this.isLoggedIn = value.isLoggedIn;
+         this.navMenuOpen = false;
+        });
     this.mobileViewService.onMobileViewListener
       .pipe(
         takeUntil(this.$destroy)
@@ -61,6 +75,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.dialog.open(AuthenticateModalComponent, {
       width: '300px',
       panelClass: 'modal-class'
+    });
+  }
+
+  deauthenticate() {
+    this.afAuth.signOut().then(() => {
+      this.shareAuthStatusService.isLoggedIn({ isLoggedIn: false, uid: null });
     });
   }
 

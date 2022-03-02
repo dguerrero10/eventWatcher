@@ -6,10 +6,36 @@
     100% { opacity: 1; }
 }
 
-@keyframes slide-in-down {
+@keyframes slide-in-up-sm {
+    0% {
+        transform: translateY(5px);
+    }
+
+    100% { opacity: 1; }
+}
+
+
+@keyframes slide-in-down-sm {
     0% {
         transform: translateY(-5px);
     }
 
     100% { opacity: 1; }
 }
+
+@keyframes slide-in-right {
+    0% {
+        transform: translateX(50px);
+    }
+
+    100% { opacity: 1; }
+}
+
+@keyframes slide-in-left {
+    0% {
+        transform: translateX(-50px);
+    }
+
+    100% { opacity: 1; }
+}
+

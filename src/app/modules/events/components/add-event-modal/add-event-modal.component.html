@@ -1,19 +1,26 @@
 <h2 mat-dialog-title align="center">Add event</h2>
 <div class="add-event">
-    <form class="add-event__form">
+    <form [formGroup]="eventForm" (ngSubmit)="onSubmit(eventForm)"
+          class="add-event__form">
         <mat-form-field class="add-event__form--field"
                         appearance="outline">
             <mat-label>Classify event</mat-label>
-            <input matInput>
+            <input matInput formControlName="classification">
+            <mat-hint>Use at most two words</mat-hint>
+            <mat-error *ngIf="eventForm.get('classification')">{{getFormErrors('classification')}}</mat-error>
+            <mat-error *ngIf="invalidClassification">Use at most two words.</mat-error>
         </mat-form-field>
         <mat-form-field class="add-event__form--field"
                         appearance="outline">
-            <mat-label>What happened?</mat-label>
-            <textarea rows="4" matInput></textarea>
+            <mat-label>Event description</mat-label>
+            <textarea placeholder="There was an explosion..." 
+                      rows="4" matInput formControlName="eventDescription"></textarea>
+            <mat-error *ngIf="eventForm.get('eventDescription')">{{getFormErrors('eventDescription')}}</mat-error>
         </mat-form-field>
         <div class="add-event__form--actions">
-            <button mat-button mat-dialog-close>Cancel</button>
-            <button mat-flat-button color="primary" dkFocusInitial>Add</button>
+            <button mat-button mat-dialog-close type="button">Cancel</button>
+            <button mat-flat-button color="primary" type="submit" 
+                    dkFocusInitial>Add</button>
         </div>
     </form>
 </div>

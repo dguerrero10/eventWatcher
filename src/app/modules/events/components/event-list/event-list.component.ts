@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { EventListOpenService } from 'src/app/core/shared/event-list-open.service';
-import { MobileViewService } from 'src/app/core/shared/mobile-view.service';
+import { EventListOpenService } from 'src/app/core/services/event-list-open.service';
+import { MobileViewService } from 'src/app/core/services/mobile-view.service';
 
 @Component({
   selector: 'app-event-list',
