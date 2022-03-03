@@ -1,5 +1,6 @@
-<div [ngClass]="!onMobile ? 'event-list' : 'event-list-mobile'">
-    <mat-toolbar [ngClass]="!onMobile? 'event-list__toolbar': 'event-list-mobile__toolbar'">
+<div [ngClass]="!onMobile ? 'event-list' : 'event-list-mobile ' + slideInDownAnimation">
+    <mat-toolbar [ngClass]="!onMobile? 'event-list__toolbar': 'event-list-mobile__toolbar'"
+                 (pandown)="closeEventList()">
         Event feed <mat-icon class="event-list__speaker-icon">campaign</mat-icon>
         <button *ngIf="onMobile"
             (click)="closeEventList()"

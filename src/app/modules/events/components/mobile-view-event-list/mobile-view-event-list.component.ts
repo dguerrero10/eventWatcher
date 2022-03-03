@@ -36,6 +36,11 @@ export class MobileViewEventListComponent implements OnInit {
         });
   }
 
+  onPanStart(event: any) {
+    this.eventListOpen = !this.eventListOpen;
+    this.eventListOpenService.isEventListOpen(true);
+  }
+
   openEventFeed() {
     this.eventListOpen = !this.eventListOpen;
     this.eventListOpenService.isEventListOpen(true);

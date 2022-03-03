@@ -62,3 +62,8 @@
         right: 30px;
     }
 }
+
+.slide-down-out {
+    opacity: 1;
+    animation: slide-down-out ease-out .2s forwards;
+}

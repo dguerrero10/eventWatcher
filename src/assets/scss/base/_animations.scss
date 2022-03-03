@@ -14,6 +14,10 @@
     100% { opacity: 1; }
 }
 
+@keyframes slide-down-out {
+    80% { opacity: .90; }
+    100% { transform: translateY(100%); }
+}
 
 @keyframes slide-in-down-sm {
     0% {

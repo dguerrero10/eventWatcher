@@ -10,6 +10,7 @@ import { MobileViewService } from 'src/app/core/services/mobile-view.service';
 })
 export class EventListComponenet implements OnInit, OnDestroy {
   public onMobile: boolean = false;
+  public slideInDownAnimation: string = '';
   private readonly $destroy = new Subject();
 
   constructor(private eventListOpenService: EventListOpenService,
@@ -30,7 +31,10 @@ export class EventListComponenet implements OnInit, OnDestroy {
   }
 
   closeEventList() {
-    this.eventListOpenService.isEventListOpen(false);
+    this.slideInDownAnimation = 'slide-down-out';
+    setTimeout(() => {
+      this.eventListOpenService.isEventListOpen(false);
+    }, 180);
   }
 
   ngOnDestroy(): void {

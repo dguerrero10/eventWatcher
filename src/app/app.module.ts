@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,6 +8,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import 'hammerjs';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HammerModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule

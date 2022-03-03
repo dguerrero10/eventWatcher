@@ -1,5 +1,6 @@
 <app-event-list *ngIf="eventListOpen"></app-event-list>
-<div *ngIf="!eventListOpen" class="mobile-event-list">
+<div *ngIf="!eventListOpen" class="mobile-event-list" 
+     (panstart)="onPanStart($event)">
     <button mat-icon-button 
             (click)="openEventFeed()"
            aria-label="Icon bar">
