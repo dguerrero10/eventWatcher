@@ -5,13 +5,4 @@
            aria-label="Icon bar">
         <mat-icon class="mobile-event-list__maximize">maximize</mat-icon>
     </button>
-    <button (click)="addEvent()"
-            class="mobile-event-list__btn"
-            mat-flat-button color="primary"
-            [disabled]="isLoggedIn ? false : true">
-            Add event
-    </button>
-    <p *ngIf="!isLoggedIn" class="mat-body mobile-event-list__para">
-        Authenticate yourself to add an event.
-    </p>
 </div>

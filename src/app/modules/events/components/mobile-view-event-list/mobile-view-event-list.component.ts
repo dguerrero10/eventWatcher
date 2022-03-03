@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
 import { EventListOpenService } from 'src/app/core/services/event-list-open.service';
 import { ShareAuthStatusService } from 'src/app/core/services/share-auth-status.service';
 import { Auth } from 'src/app/core/shared/models/auth';
-import { AddEventModalComponent } from '../add-event-modal/add-event-modal.component';
 
 @Component({
   selector: 'app-mobile-view-event-list',
@@ -17,8 +15,7 @@ export class MobileViewEventListComponent implements OnInit {
   private readonly $destroy = new Subject();
 
   constructor(private shareAuthStatusService: ShareAuthStatusService,
-              private eventListOpenService: EventListOpenService,
-              private dialog: MatDialog) { }
+              private eventListOpenService: EventListOpenService) { }
 
   ngOnInit(): void {
     this.shareAuthStatusService.authenticatedListener
@@ -37,13 +34,6 @@ export class MobileViewEventListComponent implements OnInit {
               this.eventListOpen = false;
             }
         });
-  }
-
-  addEvent() {
-    this.dialog.open(AddEventModalComponent, {
-      minWidth: '300px',
-      panelClass: 'modal-class'
-    });
   }
 
   openEventFeed() {

@@ -2,7 +2,9 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { map, Observable, Subject, takeUntil } from 'rxjs';
+import { EventListOpenService } from 'src/app/core/services/event-list-open.service';
 import { MobileViewService } from 'src/app/core/services/mobile-view.service';
 import { ShareAuthStatusService } from 'src/app/core/services/share-auth-status.service';
 import { ShareEventLocationService } from 'src/app/core/services/share-event-location.service';
@@ -19,11 +21,15 @@ export class EventsComponent implements OnInit, OnDestroy {
   public events: Observable<Event[]> | any;
   public onMobile: boolean = false;
   public isLoggedIn: boolean = false;
+  public eventListOpen: boolean = false;
+  public shownMessage: boolean = false;
   private readonly $destroy = new Subject();
 
   constructor(private shareAuthStatusService: ShareAuthStatusService,
               private shareEventLocationService: ShareEventLocationService,
+              private snackbar: MatSnackBar,
               private afs: AngularFirestore,
+              private eventListOpenService: EventListOpenService,
               private breakpointObserver: BreakpointObserver,
               private mobileViewService: MobileViewService,
               private dialog: MatDialog) { }
@@ -33,7 +39,17 @@ export class EventsComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.$destroy)
       )
-       .subscribe((value: Auth) => this.isLoggedIn = value.isLoggedIn);
+       .subscribe((value: Auth) => {
+         this.isLoggedIn = value.isLoggedIn;
+         if (!this.isLoggedIn && !this.shownMessage) {
+            this.snackbar.open('Authenticate yourself to add an event.', 'Dismiss', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom'
+            });
+            this.shownMessage = true;
+          }
+        });
     this.eventsCollection = this.afs.collection<Event>('events', ref => ref.orderBy('timestamp', 'desc'));
     this.events = this.eventsCollection.snapshotChanges()
     .pipe(
@@ -52,6 +68,18 @@ export class EventsComponent implements OnInit, OnDestroy {
        this.shareEventLocationService.shareEventLocations(events);
     });
 
+    this.eventListOpenService.eventListOpenListener
+    .pipe(
+      takeUntil(this.$destroy)
+      )
+      .subscribe(isOpen => {
+          if (isOpen) {
+            this.eventListOpen = true;
+          } else {
+            this.eventListOpen = false;
+          }
+      });
+
     this.breakpointObserver
     .observe(['(max-width: 500px)'])
     .pipe(
@@ -66,6 +94,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         this.mobileViewService.switchToMobileState(false);
       }
     });
+  
   }
 
   addEvent() {

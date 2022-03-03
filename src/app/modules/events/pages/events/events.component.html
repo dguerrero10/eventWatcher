@@ -7,6 +7,15 @@
    </button>
 </mat-toolbar>
 <div [ngClass]="!onMobile ? 'grid-xl-sm' : 'mobile-layout' ">
+   <button *ngIf="onMobile && !eventListOpen"
+            [disabled]="isLoggedIn ? false : true"
+            class="events__fab-btn" 
+            mat-fab
+            (click)="addEvent()" 
+            color="primary" 
+            aria-label="Circular button with plus icon">
+      <mat-icon>add</mat-icon>
+   </button>
    <app-google-maps-wrapper></app-google-maps-wrapper>
    <app-event-list *ngIf="!onMobile"></app-event-list>
    <app-mobile-view-event-list *ngIf="onMobile"></app-mobile-view-event-list>

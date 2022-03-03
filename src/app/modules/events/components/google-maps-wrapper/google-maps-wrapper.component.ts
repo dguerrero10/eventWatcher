@@ -32,6 +32,7 @@ export class GoogleMapsWrapperComponent implements OnInit, OnDestroy {
     mapTypeId: 'hybrid',
     zoomControl: true,
     scrollwheel: true,
+    gestureHandling: 'greedy',
     disableDoubleClickZoom: false,
     maxZoom: 22,
     minZoom: 4,
