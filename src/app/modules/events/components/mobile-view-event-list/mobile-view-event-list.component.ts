@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { EventListOpenService } from 'src/app/core/services/event-list-open.service';
 import { ShareAuthStatusService } from 'src/app/core/services/share-auth-status.service';
-import { Auth } from 'src/app/core/shared/models/auth';
+import { Auth } from 'src/app/core/shared/models/auth.model';
 
 @Component({
   selector: 'app-mobile-view-event-list',

@@ -1,25 +1,27 @@
-<h2 *ngIf="!loginError" class="auth__header" mat-dialog-title align="center">Authenticate</h2>
+<h2 *ngIf="!loginError" class="auth__header" mat-dialog-title align="center">
+    {{ lang.authenticateModal.authenticate }}
+</h2>
 <h2 *ngIf="loginError" class="auth__header--failed" 
-     mat-dialog-title align="center">Authentication failed
+     mat-dialog-title align="center">{{lang.shared.authFailed}}
 </h2>
 <div class="auth">
     <form [formGroup]="authForm" (ngSubmit)="onSubmit(authForm)"
           class="auth__form">
         <mat-form-field class="auth__form--field" appearance="outline">
-            <mat-label>Email</mat-label>
+            <mat-label>{{ lang.shared.email }}</mat-label>
             <input matInput formControlName="email">
             <mat-error *ngIf="authForm.get('email')">{{getFormErrors('email')}}</mat-error>
         </mat-form-field>
         <mat-form-field class="auth__form--field" appearance="outline">
-            <mat-label>Password</mat-label>
+            <mat-label>{{ lang.shared.password }}</mat-label>
             <input matInput type="password" formControlName="password">
             <mat-error *ngIf="authForm.get('password')">{{getFormErrors('password')}}</mat-error>
         </mat-form-field>
         <div class="auth__form--actions">
             <button mat-button mat-dialog-close type="button"
-                    [disabled]="isSubmitting ? true : false">Cancel</button>
+                    [disabled]="isSubmitting ? true : false">{{ lang.shared.cancelBtn }}</button>
             <button *ngIf="!isSubmitting" mat-flat-button color="primary" type="submit"
-                    dkFocusInitial>Submit</button>
+                    dkFocusInitial>{{ lang.shared.submitBtn }}</button>
             <mat-spinner *ngIf="isSubmitting"diameter="35"></mat-spinner>
         </div>
     </form>

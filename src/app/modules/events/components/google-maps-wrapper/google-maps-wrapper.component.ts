@@ -8,7 +8,7 @@ import { FocusOnLocationService } from 'src/app/core/services/focus-on-location.
 import { MobileViewService } from 'src/app/core/services/mobile-view.service';
 import { ShareEventLocationService } from 'src/app/core/services/share-event-location.service';
 import { ShareGeoLocationService } from 'src/app/core/services/share-geo-location.service';
-import { Coordinates } from 'src/app/core/shared/models/coordinates';
+import { Coordinates } from 'src/app/core/shared/models/coordinates.model';
 import { Event } from 'src/app/core/shared/models/event.model';
 import { Marker } from 'src/app/core/shared/models/marker.model';
 import { DisplayMarkerInfoModalComponent } from '../display-marker-info-modal/display-marker-info-modal.component';
@@ -26,7 +26,7 @@ export class GoogleMapsWrapperComponent implements OnInit, OnDestroy {
   public markers: Marker[] | any = [];
   private readonly $destroy = new Subject();
 
-  public zoom = 16
+  public zoom = 12
   public center: google.maps.LatLngLiteral | any;
   public options: google.maps.MapOptions = {
     mapTypeId: 'hybrid',
@@ -82,7 +82,6 @@ export class GoogleMapsWrapperComponent implements OnInit, OnDestroy {
           map((event: any) => {
             return event.map((e: Event) => ({
               position: { lat: e.coordinates.lat, lng: e.coordinates.lng },
-              options: { animation: google.maps.Animation.DROP },
               title: e.classification,
               eventDescription: e.eventDescription,
               timestamp: e.timestamp

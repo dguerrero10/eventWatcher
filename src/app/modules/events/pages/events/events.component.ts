@@ -3,13 +3,17 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { map, Observable, Subject, takeUntil } from 'rxjs';
+import { map, Observable, Subject, switchMap, takeUntil } from 'rxjs';
+import { LANGUAGE_DICT } from 'src/app/core/data/language-dict';
+import { ChangeLanguageService } from 'src/app/core/services/change-language.service';
 import { EventListOpenService } from 'src/app/core/services/event-list-open.service';
 import { MobileViewService } from 'src/app/core/services/mobile-view.service';
 import { ShareAuthStatusService } from 'src/app/core/services/share-auth-status.service';
 import { ShareEventLocationService } from 'src/app/core/services/share-event-location.service';
-import { Auth } from 'src/app/core/shared/models/auth';
+import { Auth } from 'src/app/core/shared/models/auth.model';
+import { Language } from 'src/app/core/shared/models/languages.model';
 import { AddEventModalComponent } from '../../components/add-event-modal/add-event-modal.component';
+import { ChangeLanguageModalComponent } from '../../components/change-language-modal/change-language-modal.component';
 
 @Component({
   selector: 'app-events',
@@ -21,35 +25,42 @@ export class EventsComponent implements OnInit, OnDestroy {
   public events: Observable<Event[]> | any;
   public onMobile: boolean = false;
   public isLoggedIn: boolean = false;
+  public lang: any;
   public eventListOpen: boolean = false;
   public shownMessage: boolean = false;
+  public languages: Language[] = [
+      { viewValue: 'English', value: 'eng', selected: false },
+      { viewValue: 'Ukranian', value: 'ukr', selected: false },
+      { viewValue: 'Russian', value: 'ru', selected: false },
+    ];
   private readonly $destroy = new Subject();
 
   constructor(private shareAuthStatusService: ShareAuthStatusService,
               private shareEventLocationService: ShareEventLocationService,
-              private snackbar: MatSnackBar,
-              private afs: AngularFirestore,
               private eventListOpenService: EventListOpenService,
               private breakpointObserver: BreakpointObserver,
               private mobileViewService: MobileViewService,
+              private changeLanguageService: ChangeLanguageService,
+              private snackbar: MatSnackBar,
+              private afs: AngularFirestore,
               private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.shareAuthStatusService.authenticatedListener
-      .pipe(
-        takeUntil(this.$destroy)
+     this.shareAuthStatusService.authenticatedListener
+    .pipe(
+      switchMap((value: Auth) => {
+        this.isLoggedIn = value.isLoggedIn;
+        return this.changeLanguageService.selectedLangListener
+      }),
+      takeUntil(this.$destroy)
       )
-       .subscribe((value: Auth) => {
-         this.isLoggedIn = value.isLoggedIn;
-         if (!this.isLoggedIn && !this.shownMessage) {
-            this.snackbar.open('Authenticate yourself to add an event.', 'Dismiss', {
-              duration: 3000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom'
-            });
-            this.shownMessage = true;
-          }
-        });
+      .subscribe((key: string) => {
+        if (key === 'ukr') this.lang = this.lang = LANGUAGE_DICT['ukr'];
+        else if (key === 'ru') this.lang = this.lang = LANGUAGE_DICT['ru'];
+        else if (key === 'eng') this.lang = this.lang = LANGUAGE_DICT['eng'];
+        else this.lang = this.lang = LANGUAGE_DICT['eng'];
+      });
+      
     this.eventsCollection = this.afs.collection<Event>('events', ref => ref.orderBy('timestamp', 'desc'));
     this.events = this.eventsCollection.snapshotChanges()
     .pipe(
@@ -81,7 +92,7 @@ export class EventsComponent implements OnInit, OnDestroy {
       });
 
     this.breakpointObserver
-    .observe(['(max-width: 500px)'])
+    .observe(['(max-width: 740px)'])
     .pipe(
       takeUntil(this.$destroy)
     )
@@ -94,11 +105,21 @@ export class EventsComponent implements OnInit, OnDestroy {
         this.mobileViewService.switchToMobileState(false);
       }
     });
-  
+  }
+
+  onLanguageChange(event: any) {
+    this.changeLanguageService.changeLanguage(event.value);
   }
 
   addEvent() {
     this.dialog.open(AddEventModalComponent, {
+      minWidth: '300px',
+      panelClass: 'modal-class'
+    });
+  }
+
+  changeLanguage() {
+    this.dialog.open(ChangeLanguageModalComponent, {
       minWidth: '300px',
       panelClass: 'modal-class'
     });

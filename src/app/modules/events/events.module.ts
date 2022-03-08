@@ -15,6 +15,7 @@ import { FirstTimeAuthenticateModalComponent } from './components/first-time-aut
 import { MobileViewEventListComponent } from './components/mobile-view-event-list/mobile-view-event-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DisplayMarkerInfoModalComponent } from './components/display-marker-info-modal/display-marker-info-modal.component';
+import { ChangeLanguageModalComponent } from './components/change-language-modal/change-language-modal.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { DisplayMarkerInfoModalComponent } from './components/display-marker-inf
     FirstTimeAuthenticateModalComponent,
     MobileViewEventListComponent,
     DisplayMarkerInfoModalComponent,
+    ChangeLanguageModalComponent,
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
+import { LANGUAGE_DICT } from 'src/app/core/data/language-dict';
+import { ChangeLanguageService } from 'src/app/core/services/change-language.service';
 import { EventListOpenService } from 'src/app/core/services/event-list-open.service';
 import { MobileViewService } from 'src/app/core/services/mobile-view.service';
 
@@ -11,9 +13,11 @@ import { MobileViewService } from 'src/app/core/services/mobile-view.service';
 export class EventListComponenet implements OnInit, OnDestroy {
   public onMobile: boolean = false;
   public slideInDownAnimation: string = '';
+  public lang: any;
   private readonly $destroy = new Subject();
 
-  constructor(private eventListOpenService: EventListOpenService,
+  constructor(private changeLanguageService: ChangeLanguageService,
+              private eventListOpenService: EventListOpenService,
               private mobileViewService: MobileViewService) { }
 
   ngOnInit(): void {
@@ -27,6 +31,17 @@ export class EventListComponenet implements OnInit, OnDestroy {
           } else {
             this.onMobile = false;
           }
+      });
+
+      this.changeLanguageService.selectedLangListener
+      .pipe(
+        takeUntil(this.$destroy)
+       )
+        .subscribe((key: string) => {
+          if (key === 'ukr') this.lang = this.lang = LANGUAGE_DICT['ukr'];
+          else if (key === 'ru') this.lang = this.lang = LANGUAGE_DICT['ru'];
+          else if (key === 'eng') this.lang = this.lang = LANGUAGE_DICT['eng'];
+          else this.lang = this.lang = LANGUAGE_DICT['eng'];
       });
   }
 

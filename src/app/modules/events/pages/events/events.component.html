@@ -1,14 +1,33 @@
 <app-navbar></app-navbar>
 <mat-toolbar *ngIf="!onMobile" class="events__toolbar">
-   <p class="mat-body events__para" *ngIf="!isLoggedIn">Authenticate yourself to add an event.</p>
-   <button class="events__toolbar--btn" color="primary" mat-flat-button [disabled]="isLoggedIn ? false : true" 
-         (click)="addEvent()">
-      Add event
-   </button>
+   <div class="events__toolbar--wrapper u-sm-font">
+      <mat-form-field appearance="outline" class="u-offset-pad">
+         <mat-label>{{ lang.shared.language }}</mat-label>
+         <mat-select [value]="languages[0].value" 
+                     (selectionChange)="onLanguageChange($event)">
+           <mat-option *ngFor="let lang of languages" [value]="lang.value">
+             {{lang.viewValue}}
+           </mat-option>
+         </mat-select>
+       </mat-form-field>
+   </div>
+   <div class="events__toolbar--wrapper">
+      <p class="mat-body u-ital-bld-p u-mg-right" *ngIf="!isLoggedIn">{{ lang.eventPage.para }}</p>
+      <button class="events__toolbar--btn" color="primary" mat-flat-button [disabled]="isLoggedIn ? false : true" 
+            (click)="addEvent()">
+         {{ lang.eventPage.addEventBtn }}
+      </button>
+   </div>
 </mat-toolbar>
 <div [ngClass]="!onMobile ? 'grid-xl-sm' : 'mobile-layout' ">
    <button *ngIf="onMobile && !eventListOpen"
-            [disabled]="isLoggedIn ? false : true"
+            [ngClass]="isLoggedIn ? 'events__fab-btn--left': 'events__fab-btn--left-iso'" 
+            mat-fab
+            (click)="changeLanguage()" 
+            aria-label="Circular button with langauge icon">
+      <mat-icon>translate</mat-icon>
+   </button>
+   <button *ngIf="onMobile && isLoggedIn && !eventListOpen"
             class="events__fab-btn" 
             mat-fab
             (click)="addEvent()" 

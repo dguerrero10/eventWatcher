@@ -1,6 +1,6 @@
 <div class="event-detail" style="margin: 1rem 0; cursor: default;">
     <div class="event-detail__row">
-        <p class="mat-body">Classification: <span class="u-bold">{{data.marker.title}}</span></p>
+        <p class="mat-body">{{ lang.eventDetail.classification }}: <span class="u-bold">{{data.marker.title}}</span></p>
     </div>
     <mat-divider></mat-divider>
     <div class="event-detail__row">
@@ -10,16 +10,16 @@
     </div>
     <mat-divider></mat-divider>
     <div class="event-detail__row">
-      <p>Event coordinates: <span class="u-bold">lat: {{data.marker.position.lat}}, lng: {{data.marker.position.lng}}</span></p>  
+      <p>{{ lang.eventDetail.coordinates }}: <span class="u-bold">lat: {{data.marker.position.lat}}, lng: {{data.marker.position.lng}}</span></p>  
     </div>
     <mat-divider></mat-divider>
     <div class="event-detail__row">
-        <p>Timestamp: <span class="u-bold">{{data.marker.timestamp}}</span></p>  
+        <p>{{ lang.eventDetail.timestamp }}: <span class="u-bold">{{data.marker.timestamp}}</span></p>  
     </div>
 </div>
 <button mat-stroked-button
         mat-dialog-close="true"
         color="warn" 
         class="u-width-100">
-        Close
+        {{ lang.eventDetail.close }}
 </button>

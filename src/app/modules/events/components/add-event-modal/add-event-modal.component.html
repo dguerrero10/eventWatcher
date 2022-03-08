@@ -1,26 +1,29 @@
-<h2 mat-dialog-title align="center">Add event</h2>
+<h2 mat-dialog-title align="center">{{ lang.addEventModal.addEvent }}</h2>
 <div class="add-event">
     <form [formGroup]="eventForm" (ngSubmit)="onSubmit(eventForm)"
           class="add-event__form">
         <mat-form-field class="add-event__form--field"
                         appearance="outline">
-            <mat-label>Classify event</mat-label>
+            <mat-label>{{ lang.addEventModal.classifyEvent }}</mat-label>
             <input matInput formControlName="classification">
-            <mat-hint>Use at most two words</mat-hint>
+            <mat-hint>{{ lang.shared.formHint }}</mat-hint>
             <mat-error *ngIf="eventForm.get('classification')">{{getFormErrors('classification')}}</mat-error>
             <mat-error *ngIf="invalidClassification">Use at most two words.</mat-error>
         </mat-form-field>
         <mat-form-field class="add-event__form--field"
                         appearance="outline">
-            <mat-label>Event description</mat-label>
+            <mat-label>{{ lang.addEventModal.describeEvent }}</mat-label>
             <textarea placeholder="There was an explosion..." 
                       rows="4" matInput formControlName="eventDescription"></textarea>
             <mat-error *ngIf="eventForm.get('eventDescription')">{{getFormErrors('eventDescription')}}</mat-error>
         </mat-form-field>
         <div class="add-event__form--actions">
-            <button mat-button mat-dialog-close type="button">Cancel</button>
-            <button mat-flat-button color="primary" type="submit" 
-                    dkFocusInitial>Add</button>
+            <button [disabled]="isSubmitting ? true : false"
+                    mat-button mat-dialog-close type="button">{{ lang.shared.cancelBtn }}</button>
+            <button *ngIf="!isSubmitting"
+                    mat-flat-button color="primary" type="submit" 
+                    dkFocusInitial>{{ lang.shared.submitBtn }}</button>
+            <mat-spinner *ngIf="isSubmitting"diameter="35"></mat-spinner>
         </div>
     </form>
 </div>

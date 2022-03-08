@@ -15,6 +15,10 @@ export class GetIPAddressService {
     return this.http.get("https://api.ipify.org/?format=json");
   }
 
+  // checkIPRegion(){
+
+  // }
+
   shareIPAddress(ip: string) {
     this.IPAddress.next(ip);
   }

@@ -4,19 +4,19 @@
       <ng-container *ngIf="!isLoggedIn">
         <button mat-stroked-button color="primary" 
                 class="u-xs-mg-right navbar__actions-btn" (click)="firstTimeAuthenticate()">
-            I've never authenticated
+                {{ lang.navbar.neverAuthenticatedBtn }}
             <mat-icon class="btn-icon">lock_open</mat-icon>
         </button>
         <button mat-flat-button color="warn" 
                 class="u-xs-mg-left navbar__actions-btn" (click)="authenticate()">
-                Authenticate
+                {{ lang.navbar.authenticateBtn }}
             <mat-icon class="btn-icon">lock</mat-icon>
         </button>
       </ng-container>
         <button class="navbar__deauth-btn"
                 *ngIf="isLoggedIn" mat-stroked-button color="warn" 
                 (click)="deauthenticate()">
-                Deauthenticate
+                {{ lang.navbar.deauthenticateBtn }}
             <mat-icon class="btn-icon">logout</mat-icon>
         </button>
     </div>
@@ -34,21 +34,21 @@
         <mat-toolbar-row *ngIf="!isLoggedIn">
             <button class="u-width-100"
                 mat-flat-button color="warn" (click)="authenticate()">
-                Authenticate
+                {{ lang.navbar.authenticateBtn }}
                 <mat-icon class="btn-icon">lock</mat-icon>
             </button>
         </mat-toolbar-row>
         <mat-toolbar-row *ngIf="!isLoggedIn">
             <button class="u-width-100"
                 mat-stroked-button color="primary" (click)="firstTimeAuthenticate()">
-                I've never authenticated
+                {{ lang.navbar.neverAuthenticatedBtn }}
                 <mat-icon class="btn-icon">lock_open</mat-icon>
             </button>
         </mat-toolbar-row>
         <mat-toolbar-row *ngIf="isLoggedIn">
             <button class="u-width-100"
                 mat-stroked-button color="warn" (click)="deauthenticate()">
-                Deauthenticate
+                {{ lang.navbar.deauthenticateBtn }}
                 <mat-icon class="btn-icon">logout</mat-icon>
             </button>
         </mat-toolbar-row>

@@ -1,9 +1,14 @@
-<p *ngIf="!events.length" class="event-detail__no-events u-bold">There are currently no events.</p>
-<div class="event-detail" *ngFor="let event of events"
-     matRipple
-    (click)="focusOnLocation(event)">
+<p *ngIf="!events.length" class="event-detail__no-events u-bold">{{ lang.shared.noEvents }}</p>
+<div class="event-detail" *ngFor="let event of events" (click)="isDeleting ? null : focusOnLocation(event)">
     <div class="event-detail__row">
-        <p class="mat-body">Classification: <span class="u-bold">{{event.classification}}</span></p>
+        <p class="mat-body">{{ lang.eventDetail.classification }}: <span class="u-bold">{{event.classification}}</span></p>
+        <button *ngIf="event.uid === uid && !isDeleting"
+                mat-icon-button 
+                color="warn"
+                (click)="deleteEvent(event.id)"
+                aria-label="Icon button with trash can.">
+            <mat-icon>delete</mat-icon>
+        </button>
     </div>
     <mat-divider></mat-divider>
     <div class="event-detail__row">
@@ -13,10 +18,12 @@
     </div>
     <mat-divider></mat-divider>
     <div class="event-detail__row">
-      <p>Event coordinates: <span class="u-bold">lat: {{event.coordinates.lat}}, lng: {{event.coordinates.lng}}</span></p>  
+        <p>{{ lang.eventDetail.coordinates }}: <span class="u-bold">lat: {{event.coordinates.lat}}, lng:
+                {{event.coordinates.lng}}</span>
+        </p>
     </div>
     <mat-divider></mat-divider>
     <div class="event-detail__row">
-        <p>Timestamp: <span class="u-bold">{{event.timestamp}}</span></p>  
+        <p>{{ lang.eventDetail.timestamp }}: <span class="u-bold">{{event.timestamp}}</span></p>
     </div>
 </div>
